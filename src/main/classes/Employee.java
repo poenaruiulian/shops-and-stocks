@@ -1,24 +1,26 @@
 package main.classes;
 
-import main.enums.UserType;
-
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 public class Employee extends Person {
     private int shopID;
-    private Date dateOfEmployment;
+    private LocalDate dateOfEmployment;
 
     public Employee() {
         super();
         shopID = -1;
-        dateOfEmployment = new Date();
+        dateOfEmployment = null;
     }
-    public Employee(int userID, UserType userType, String firstName, String lastName, Date dateOfBirth, String phoneNumber, String address, int shopID, Date dateOfEmployment) {
+    public Employee(int userID, String userType, String firstName, String lastName, LocalDate dateOfBirth, String phoneNumber, String address, int shopID, LocalDate dateOfEmployment) {
         super(userID, userType, firstName, lastName, dateOfBirth, phoneNumber, address);
         this.shopID = shopID;
         this.dateOfEmployment = dateOfEmployment;
     }
 
-
+    public int getShopID() {
+        return shopID;
+    }
+    public LocalDate getDateOfEmployment() {
+        return dateOfEmployment;
+    }
 }
