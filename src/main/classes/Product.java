@@ -1,6 +1,6 @@
 package main.classes;
 
-import main.enums.Unit;
+import main.types.Unit;
 
 public class Product {
     private int productId;

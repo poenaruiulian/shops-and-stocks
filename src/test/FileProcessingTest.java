@@ -1,8 +1,8 @@
 package test;
 
 import main.classes.*;
-import main.enums.Unit;
-import main.enums.UserType;
+import main.types.Unit;
+import main.types.UserType;
 import main.files.FileProcessing;
 
 import java.time.LocalDate;
@@ -15,7 +15,6 @@ class FileProcessingTest {
     void addNewShopToFile() {
         int lastUsedId = FileProcessing.getLastIDUsed("shops");
         List<Employee> employees = new ArrayList<>();
-        employees.add((Employee) FileProcessing.getUserFromFile(0));
         employees.add((Employee) FileProcessing.getUserFromFile(1));
         employees.add((Employee) FileProcessing.getUserFromFile(2));
 
@@ -112,5 +111,60 @@ class FileProcessingTest {
 
         String fisier3 = "shops";
         System.out.println(FileProcessing.getLastIDUsed(fisier3));
+    }
+
+    @org.junit.jupiter.api.Test
+    void updateProductInFileTest(){
+        Product updatedProduct = new Product(3,"Pepene",20,Unit.bucata,20);
+        FileProcessing.updateProductInFile(updatedProduct);
+    }
+    @org.junit.jupiter.api.Test
+    void udpateUserInFileTest(){
+        LocalDate dateOfBirth = LocalDate.of(2000, 1, 2);
+        LocalDate dateOfEmployment = LocalDate.of(2017, 3, 2);
+
+
+        Employee employee = new Employee(1,UserType.employee,"Dorel","Mirel",dateOfBirth,"777 777 777","Strada Plosnitelor",0,dateOfEmployment);
+        FileProcessing.updateUserInFile(employee);
+
+        List<Employee> employees = new ArrayList<>();
+        employees.add(employee);
+        ShopManager shopManager = new ShopManager(3,UserType.employee,"Dorel","Mirel",dateOfBirth,"777 777 777","Strada Plosnitelor",0,dateOfEmployment,employees);
+        FileProcessing.updateUserInFile(shopManager);
+
+        employees.add(shopManager);
+        List<Shop> shops = new ArrayList<>();
+        shops.add(FileProcessing.getShopFromFile(0));
+        CEO ceo = new CEO(4,UserType.ceo,"Dorel","Mirel",dateOfBirth,"777 777 777","Strada Plosnitelor",employees,shops);
+        FileProcessing.updateUserInFile(ceo);
+    }
+
+    @org.junit.jupiter.api.Test
+    void updateShopInFileTest(){
+        Shop updatedShop = FileProcessing.getShopFromFile(0);
+        List<Product> products = updatedShop.getProductList();
+
+        Product newProduct = FileProcessing.getProductFromFile(4);
+        products.add(newProduct);
+
+        updatedShop.setProductList(products);
+
+        FileProcessing.updateShopInFile(updatedShop);
+    }
+
+    @org.junit.jupiter.api.Test
+    void deleteProductFromFileTest(){
+        int productToDeleteId = 7;
+        FileProcessing.deleteProductFromFile(productToDeleteId);
+    }
+
+    @org.junit.jupiter.api.Test
+    void deleteUserFromFileTest(){
+        FileProcessing.deleteUserFromFile(0);
+    }
+
+    @org.junit.jupiter.api.Test
+    void deleteShopFromFileTest(){
+        FileProcessing.deleteShopFromFile(0);
     }
 }

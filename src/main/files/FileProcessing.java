@@ -1,12 +1,9 @@
 package main.files;
 
 import main.classes.*;
-import main.enums.UserType;
+import main.types.UserType;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -92,7 +89,7 @@ public class FileProcessing {
             FileWriter csvWriter = new FileWriter("./src/main/files/products.csv", true);
             String productToString = newProduct.toString();
             csvWriter.append(productToString);
-//            csvWriter.flush();
+            csvWriter.flush();
             csvWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -202,7 +199,6 @@ public class FileProcessing {
     static public Product getProductFromFile(int productID) {
         Product responseProduct = new Product();
 
-
         try {
             BufferedReader csvReader = new BufferedReader(new FileReader("./src/main/files/products.csv"));
             String fileRow = csvReader.readLine();
@@ -225,8 +221,8 @@ public class FileProcessing {
     }
 
     /**
-     * @param filename the name of the file we want to work in : products, shops or users
-     * @return the last id used in the specified file
+     * @param filename The name of the file we want to work in : products, shops or users
+     * @return The last id used in the specified file
      */
     static public int getLastIDUsed(String filename) {
         int lastIdUsed = -1;
@@ -242,5 +238,212 @@ public class FileProcessing {
             throw new RuntimeException(e);
         }
         return lastIdUsed;
+    }
+
+    /**
+     * @param updatedProduct The new product you want to update you product with. The id of this object is used to find the product in the products.csv .
+     */
+    static public void updateProductInFile(Product updatedProduct) {
+        String replacingFileContents = "";
+        try {
+            BufferedReader csvReader = new BufferedReader(new FileReader("./src/main/files/products.csv"));
+            String fileRow = csvReader.readLine();
+            replacingFileContents += fileRow+"\n";
+
+            while ((fileRow = csvReader.readLine()) != null) {
+                String[] data = fileRow.split(",");
+                if(Integer.parseInt(data[0]) == updatedProduct.getProductId()){
+                    replacingFileContents += updatedProduct.toString();
+                }else{
+                    replacingFileContents += fileRow+"\n";
+                }
+            }
+            csvReader.close();
+
+            FileWriter csvWriter = new FileWriter("./src/main/files/products.csv");
+            csvWriter.append(replacingFileContents);
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @param updatedUser The user you want to update. The id of this user is used to find the user in the users.csv .
+     */
+    static public void updateUserInFile(Person updatedUser){
+        String replacingFileContents = "";
+        try {
+            BufferedReader csvReader = new BufferedReader(new FileReader("./src/main/files/users.csv"));
+            String fileRow = csvReader.readLine();
+            replacingFileContents += fileRow+"\n";
+
+            while ((fileRow = csvReader.readLine()) != null) {
+                String[] data = fileRow.split(",");
+                if(Integer.parseInt(data[0]) == updatedUser.getUserID()){
+
+                    String userToWrite = "";
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d uuuu", Locale.ENGLISH);
+                    String dateOfBirth = updatedUser.getDateOfBirth().format(formatter);
+                    String address = updatedUser.getAddress().replace(",", " ");
+
+
+                    if (updatedUser instanceof ShopManager) {
+                        String dateOfEmployment = ((ShopManager) updatedUser).getDateOfEmployment().format(formatter);
+                        String employees = "";
+                        for (Employee employee : ((ShopManager) updatedUser).getEmployeeList()) {
+                            employees += employee.getUserID() + ";";
+                        }
+                        userToWrite = updatedUser.getUserID() + "," + updatedUser.getUserType() + "," + updatedUser.getFirstName() + "," + updatedUser.getLastName() + "," + dateOfBirth + "," + updatedUser.getPhoneNumber() + "," + address + "," + ((ShopManager) updatedUser).getShopID() + "," + dateOfEmployment + "," + employees + ",-\n";
+                    } else if (updatedUser instanceof Employee) {
+                        String dateOfEmployment = ((Employee) updatedUser).getDateOfEmployment().format(formatter);
+                        userToWrite = updatedUser.getUserID() + "," + updatedUser.getUserType() + "," + updatedUser.getFirstName() + "," + updatedUser.getLastName() + "," + dateOfBirth + "," + updatedUser.getPhoneNumber() + "," + address + "," + ((Employee) updatedUser).getShopID() + "," + dateOfEmployment + ",-,-\n";
+                    } else if (updatedUser instanceof CEO) {
+                        String employees = "";
+                        for (Employee employee : ((CEO) updatedUser).getEmployeeList()) {
+                            employees += employee.getUserID() + ";";
+                        }
+                        String shops = "";
+                        for (Shop shop : ((CEO) updatedUser).getShopList()) {
+                            shops += shop.getShopID() + ";";
+                        }
+                        userToWrite = updatedUser.getUserID() + "," + updatedUser.getUserType() + "," + updatedUser.getFirstName() + "," + updatedUser.getLastName() + "," + dateOfBirth + "," + updatedUser.getPhoneNumber() + "," + address + ",-,-," + employees + "," + shops + "\n";
+                    }
+
+                    replacingFileContents += userToWrite;
+
+                }else{
+                    replacingFileContents += fileRow+"\n";
+                }
+            }
+            csvReader.close();
+
+            FileWriter csvWriter = new FileWriter("./src/main/files/users.csv");
+            csvWriter.append(replacingFileContents);
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @param updatedShop The shop you want to update. The id of the shop is used to find the shop in the shop.csv .
+     */
+    static public void updateShopInFile(Shop updatedShop){
+        String replacingFileContents = "";
+        try {
+            BufferedReader csvReader = new BufferedReader(new FileReader("./src/main/files/shops.csv"));
+            String fileRow = csvReader.readLine();
+            replacingFileContents += fileRow+"\n";
+
+            while ((fileRow = csvReader.readLine()) != null) {
+                String[] data = fileRow.split(",");
+                if(Integer.parseInt(data[0]) == updatedShop.getShopID()){
+                    String employees = "";
+                    for (Employee employee : updatedShop.getEmployeesList()) {
+                        employees += employee.getUserID() + ";";
+                    }
+                    String products = "";
+                    for (Product product : updatedShop.getProductList()) {
+                        products += product.getProductId() + ";";
+                    }
+                    String shopToString = updatedShop.getShopID() + "," + updatedShop.getOwnerID() + "," + updatedShop.getShopManagerID() + "," + employees + "," + products + "\n";
+                    replacingFileContents += shopToString;
+                }else{
+                    replacingFileContents += fileRow+"\n";
+                }
+            }
+            csvReader.close();
+
+            FileWriter csvWriter = new FileWriter("./src/main/files/shops.csv");
+            csvWriter.append(replacingFileContents);
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @param id The id of the product you want to delete from the file
+     * This function those not handle the deletion of the product from the place it might be, such as shop inventory. That functionality will be handled by the corresponding method.
+     */
+    static public void deleteProductFromFile(int id){
+        String replacingFileContents = "";
+        try {
+            BufferedReader csvReader = new BufferedReader(new FileReader("./src/main/files/products.csv"));
+            String fileRow = csvReader.readLine();
+            replacingFileContents += fileRow+"\n";
+            while ((fileRow = csvReader.readLine()) != null) {
+                String[] data = fileRow.split(",");
+                if(Integer.parseInt(data[0]) != id){
+                    replacingFileContents += fileRow+"\n";
+                }
+            }
+            csvReader.close();
+
+            FileWriter csvWriter = new FileWriter("./src/main/files/products.csv");
+            csvWriter.append(replacingFileContents);
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @param id The id of the user you want to delete from the file
+     * This function does not handle the deletion of the user from the places the user could have a reference at.
+     */
+    static public void deleteUserFromFile(int id){
+        String replacingFileContents = "";
+        try {
+            BufferedReader csvReader = new BufferedReader(new FileReader("./src/main/files/users.csv"));
+            String fileRow = csvReader.readLine();
+            replacingFileContents += fileRow+"\n";
+            while ((fileRow = csvReader.readLine()) != null) {
+                String[] data = fileRow.split(",");
+                if(Integer.parseInt(data[0]) != id){
+                    replacingFileContents += fileRow+"\n";
+                }
+            }
+            csvReader.close();
+
+            FileWriter csvWriter = new FileWriter("./src/main/files/users.csv");
+            csvWriter.append(replacingFileContents);
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @param id The id of teh shop you want to delete from the file
+     * This function does not handle the deletion of the shop from the places the shop could have a reference at.
+     */
+    static public void deleteShopFromFile(int id){
+        String replacingFileContents = "";
+        try {
+            BufferedReader csvReader = new BufferedReader(new FileReader("./src/main/files/shops.csv"));
+            String fileRow = csvReader.readLine();
+            replacingFileContents += fileRow+"\n";
+            while ((fileRow = csvReader.readLine()) != null) {
+                String[] data = fileRow.split(",");
+                if(Integer.parseInt(data[0]) != id){
+                    replacingFileContents += fileRow+"\n";
+                }
+            }
+            csvReader.close();
+
+            FileWriter csvWriter = new FileWriter("./src/main/files/shops.csv");
+            csvWriter.append(replacingFileContents);
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

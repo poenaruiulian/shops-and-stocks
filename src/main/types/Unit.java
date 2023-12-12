@@ -1,4 +1,4 @@
-package main.enums;
+package main.types;
 
 public class Unit {
     public static String kilogram = "kilogram";

@@ -1,4 +1,4 @@
-package main.enums;
+package main.types;
 
 public class UserType {
     static public String employee = "employee";

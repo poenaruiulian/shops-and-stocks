@@ -1,9 +1,8 @@
 package main.classes;
 
-import main.enums.UserType;
+import main.types.UserType;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Person {
     private int userID;
