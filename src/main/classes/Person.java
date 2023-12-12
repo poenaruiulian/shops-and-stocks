@@ -1,15 +1,15 @@
 package main.classes;
 
-import main.enums.UserType;
+import main.types.UserType;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Person {
     private int userID;
-    private UserType userType;
+    private String userType;
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String phoneNumber;
     private String address;
 
@@ -18,11 +18,11 @@ public class Person {
         this.userType = UserType.necunoscut;
         this.firstName ="";
         this.lastName="";
-        this.dateOfBirth=new Date();
+        this.dateOfBirth=null;
         this.phoneNumber="";
         this.address="";
     }
-    public Person(int userID, UserType userType ,String firstName, String lastName, Date dateOfBirth, String phoneNumber, String address){
+    public Person(int userID, String userType ,String firstName, String lastName, LocalDate dateOfBirth, String phoneNumber, String address){
         this.userID = userID;
         this.userType = userType;
         this.firstName =firstName;
@@ -32,4 +32,25 @@ public class Person {
         this.address=address;
     }
 
+    public int getUserID() {
+        return userID;
+    }
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    public String getUserType() {
+        return userType;
+    }
 }

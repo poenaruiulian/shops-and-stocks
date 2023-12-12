@@ -1,8 +1,6 @@
 package main.classes;
 
-import main.enums.UserType;
-
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class ShopManager extends Employee {
@@ -12,8 +10,12 @@ public class ShopManager extends Employee {
         super();
         this.employeeList = null;
     }
-    public ShopManager(int userID, UserType userType, String firstName, String lastName, Date dateOfBirth, String phoneNumber, String address, int shopID, Date dateOfEmployment, List<Employee> employeeList) {
+    public ShopManager(int userID, String userType, String firstName, String lastName, LocalDate dateOfBirth, String phoneNumber, String address, int shopID, LocalDate dateOfEmployment, List<Employee> employeeList) {
         super(userID, userType, firstName, lastName, dateOfBirth, phoneNumber, address, shopID, dateOfEmployment);
         this.employeeList = employeeList;
+    }
+
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 }
