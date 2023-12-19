@@ -1,6 +1,6 @@
 package main.files;
 
-import main.classes.*;
+import main.data.*;
 import main.types.UserType;
 
 import java.io.*;

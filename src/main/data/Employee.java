@@ -1,4 +1,4 @@
-package main.classes;
+package main.data;
 
 import java.time.LocalDate;
 
