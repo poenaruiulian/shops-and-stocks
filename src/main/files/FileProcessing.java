@@ -14,6 +14,7 @@ import java.util.*;
 public class FileProcessing {
 
     /**
+     * Add a new shop to file.
      * @param newShop - shop object that will be written in the shops.csv file
      */
     static public void addNewShopToFile(Shop newShop) {
@@ -27,7 +28,7 @@ public class FileProcessing {
             for (Product product : newShop.getProductList()) {
                 products += product.getProductId() + ";";
             }
-            String shopToString = newShop.getShopID() + "," + newShop.getOwnerID() + "," + newShop.getShopManagerID() + "," + employees + "," + products + "\n";
+            String shopToString = newShop.getShopID() + "," + newShop.getOwnerID() + "," + newShop.getShopManagerID() + "," + (employees.isEmpty()?"-":employees) + "," + (products.isEmpty()?"-":products) + "\n";
             csvWriter.append(shopToString);
             csvWriter.flush();
             csvWriter.close();
@@ -37,17 +38,18 @@ public class FileProcessing {
     }
 
     /**
+     * Add a new user to file.
+     * The function is writing data to corresponding file depending on what type of user its gets as param
      * @param newPerson An object of type Employee, ShopManager or CEO
-     *                  The function is writing data to corresponding file depending on what type of user its gets as param
      */
-    static public void addNewUser(Person newPerson) {
+    static public <T> void addNewUser( T newPerson) {
 
         try {
             FileWriter csvWriter = new FileWriter("./src/main/files/users.csv", true);
             String userToWrite = "";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d uuuu", Locale.ENGLISH);
-            String dateOfBirth = newPerson.getDateOfBirth().format(formatter);
-            String address = newPerson.getAddress().replace(",", " ");
+            String dateOfBirth = ((Person) newPerson).getDateOfBirth().format(formatter);
+            String address = ((Person) newPerson).getAddress().replace(",", " ");
 
 
             if (newPerson instanceof ShopManager) {
@@ -56,10 +58,10 @@ public class FileProcessing {
                 for (Employee employee : ((ShopManager) newPerson).getEmployeeList()) {
                     employees += employee.getUserID() + ";";
                 }
-                userToWrite = newPerson.getUserID() + "," + newPerson.getUserType() + "," + newPerson.getFirstName() + "," + newPerson.getLastName() + "," + dateOfBirth + "," + newPerson.getPhoneNumber() + "," + address + "," + ((ShopManager) newPerson).getShopID() + "," + dateOfEmployment + "," + employees + ",-\n";
+                userToWrite = ((ShopManager) newPerson).getUserID() + "," + ((ShopManager) newPerson).getUserType() + "," + ((ShopManager) newPerson).getFirstName() + "," + ((ShopManager) newPerson).getLastName() + "," + dateOfBirth + "," + ((ShopManager) newPerson).getPhoneNumber() + "," + address + "," + ((ShopManager) newPerson).getShopID() + "," + dateOfEmployment + "," + (employees.isEmpty()?"-":employees) + ",-\n";
             } else if (newPerson instanceof Employee) {
                 String dateOfEmployment = ((Employee) newPerson).getDateOfEmployment().format(formatter);
-                userToWrite = newPerson.getUserID() + "," + newPerson.getUserType() + "," + newPerson.getFirstName() + "," + newPerson.getLastName() + "," + dateOfBirth + "," + newPerson.getPhoneNumber() + "," + address + "," + ((Employee) newPerson).getShopID() + "," + dateOfEmployment + ",-,-\n";
+                userToWrite = ((Employee) newPerson).getUserID() + "," + ((Employee) newPerson).getUserType() + "," + ((Employee) newPerson).getFirstName() + "," + ((Employee) newPerson).getLastName() + "," + dateOfBirth + "," + ((Employee) newPerson).getPhoneNumber() + "," + address + "," + ((Employee) newPerson).getShopID() + "," + dateOfEmployment + ",-,-\n";
             } else if (newPerson instanceof CEO) {
                 String employees = "";
                 for (Employee employee : ((CEO) newPerson).getEmployeeList()) {
@@ -69,7 +71,7 @@ public class FileProcessing {
                 for (Shop shop : ((CEO) newPerson).getShopList()) {
                     shops += shop.getShopID() + ";";
                 }
-                userToWrite = newPerson.getUserID() + "," + newPerson.getUserType() + "," + newPerson.getFirstName() + "," + newPerson.getLastName() + "," + dateOfBirth + "," + newPerson.getPhoneNumber() + "," + address + ",-,-," + employees + "," + shops + "\n";
+                userToWrite = ((CEO) newPerson).getUserID() + "," + ((CEO) newPerson).getUserType() + "," + ((CEO) newPerson).getFirstName() + "," + ((CEO) newPerson).getLastName() + "," + dateOfBirth + "," + ((CEO) newPerson).getPhoneNumber() + "," + address + ",-,-," + (employees.isEmpty()?"-":employees) + "," + (shops.isEmpty()?"-":shops) + "\n";
             }
 
             csvWriter.append(userToWrite);
@@ -81,6 +83,7 @@ public class FileProcessing {
     }
 
     /**
+     * Add a new product to the products file.
      * @param newProduct An object of type Product that will be written in the file products.csv
      */
     static public void addNewProductToFile(Product newProduct) {
@@ -111,12 +114,14 @@ public class FileProcessing {
                     List<Employee> employees = new ArrayList<>();
                     List<Product> products = new ArrayList<>();
 
-                    String[] employeesIDS = data[3].split(";");
-                    String[] productsIDS = data[4].split(";");
+                    String[] employeesIDS = data[3].contains(";")?data[3].split(";"):new String[0];
+                    String[] productsIDS = data[4].contains(";")?data[4].split(";"):new String[0];
 
                     for (String employeesID : employeesIDS) {
-                        Employee employee = (Employee) getUserFromFile(Integer.parseInt(employeesID));
-                        employees.add(employee);
+                        if(getUserFromFile(Integer.parseInt(employeesID)) instanceof Employee) {
+                            Employee employee = (Employee) getUserFromFile(Integer.parseInt(employeesID));
+                            employees.add(employee);
+                        }
                     }
 
                     for (String productsID : productsIDS) {
@@ -160,7 +165,8 @@ public class FileProcessing {
                         LocalDate dateOfEmployment = LocalDate.parse(data[8], formatter);
 
                         List<Employee> employees = new ArrayList<>();
-                        for (String string : data[9].split(";")) {
+                        String[] employeesString = data[9].contains(";")?data[9].split(";"):new String[0];
+                        for (String string : employeesString ) {
                             employees.add((Employee) getUserFromFile(Integer.parseInt(string)));
                         }
                         responseEmployee = new ShopManager(Integer.parseInt(data[0]), UserType.manager, data[2], data[3], dateOfBirth, data[5], data[6], Integer.parseInt(data[7]), dateOfEmployment, employees);
@@ -168,11 +174,13 @@ public class FileProcessing {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d yyyy", Locale.ENGLISH);
                         LocalDate dateOfBirth = LocalDate.parse(data[4], formatter);
                         List<Employee> employees = new ArrayList<>();
-                        for (String string : data[9].split(";")) {
+                        String[] employeesString = data[9].contains(";")?data[9].split(";"):new String[0];
+                        for (String string : employeesString) {
                             employees.add((Employee) getUserFromFile(Integer.parseInt(string)));
                         }
                         List<Shop> shops = new ArrayList<>();
-                        for (String string : data[10].split(";")) {
+                        String[] shopsString = data[10].contains(";")?data[10].split(";"):new String[0];
+                        for (String string : shopsString) {
                             shops.add(getShopFromFile(Integer.parseInt(string)));
                         }
 
@@ -349,7 +357,7 @@ public class FileProcessing {
                     for (Product product : updatedShop.getProductList()) {
                         products += product.getProductId() + ";";
                     }
-                    String shopToString = updatedShop.getShopID() + "," + updatedShop.getOwnerID() + "," + updatedShop.getShopManagerID() + "," + employees + "," + products + "\n";
+                    String shopToString = updatedShop.getShopID() + "," + updatedShop.getOwnerID() + "," + updatedShop.getShopManagerID() + "," + (employees.isEmpty()?"-":employees) + "," + (products.isEmpty()?"-":products) + "\n";
                     replacingFileContents += shopToString;
                 }else{
                     replacingFileContents += fileRow+"\n";
@@ -367,8 +375,8 @@ public class FileProcessing {
     }
 
     /**
-     * @param id The id of the product you want to delete from the file
      * This function those not handle the deletion of the product from the place it might be, such as shop inventory. That functionality will be handled by the corresponding method.
+     * @param id The id of the product you want to delete from the file
      */
     static public void deleteProductFromFile(int id){
         String replacingFileContents = "";
@@ -421,8 +429,8 @@ public class FileProcessing {
     }
 
     /**
-     * @param id The id of teh shop you want to delete from the file
      * This function does not handle the deletion of the shop from the places the shop could have a reference at.
+     * @param id The id of teh shop you want to delete from the file
      */
     static public void deleteShopFromFile(int id){
         String replacingFileContents = "";
