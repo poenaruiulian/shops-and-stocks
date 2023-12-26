@@ -5,13 +5,13 @@ import main.types.UserType;
 import java.time.LocalDate;
 
 public class Person {
-    private int userID;
-    private String userType;
-    private String firstName;
-    private String lastName;
-    private LocalDate dateOfBirth;
-    private String phoneNumber;
-    private String address;
+    protected int userID;
+    protected String userType;
+    protected String firstName;
+    protected String lastName;
+    protected LocalDate dateOfBirth;
+    protected String phoneNumber;
+    protected String address;
 
     public Person(){
         this.userID = -1;
