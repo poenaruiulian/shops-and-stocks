@@ -1,19 +1,17 @@
 package test;
 
 import main.data.Employee;
-import main.files.FileProcessing;
+import main.helpers.FileProcessing;
 import main.types.TransactionType;
-import main.types.Unit;
+import main.types.UnitType;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeTest {
 
     @Test
     void addItemTest() {
         Employee employee = (Employee) FileProcessing.getUserFromFile(2);
-        employee.addItem("Ciocolata Alba",45, Unit.bucata,5);
+        employee.addItem("Ciocolata Alba",45, UnitType.bucata,5);
     }
 
     @Test

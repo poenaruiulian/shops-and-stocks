@@ -1,7 +1,7 @@
 package test;
 
 import main.data.ShopManager;
-import main.files.FileProcessing;
+import main.helpers.FileProcessing;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

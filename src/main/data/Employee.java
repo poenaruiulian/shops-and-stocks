@@ -1,6 +1,6 @@
 package main.data;
 
-import main.files.FileProcessing;
+import main.helpers.FileProcessing;
 import main.types.TransactionType;
 
 import java.time.LocalDate;

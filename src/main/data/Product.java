@@ -1,6 +1,6 @@
 package main.data;
 
-import main.types.Unit;
+import main.types.UnitType;
 
 public class Product {
     private int productId;
@@ -13,7 +13,7 @@ public class Product {
         this.productId=-1;
         this.productName = "";
         this.quantity = 0.0;
-        this.unit = Unit.necunoscut;
+        this.unit = UnitType.necunoscut;
         this.pricePerUnit = 0;
     }
 

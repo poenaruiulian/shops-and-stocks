@@ -1,11 +1,9 @@
 package main.data;
 
-import main.files.FileProcessing;
+import main.helpers.FileProcessing;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CEOTest {
 

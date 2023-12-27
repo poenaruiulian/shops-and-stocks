@@ -1,4 +1,4 @@
-package main.files;
+package main.helpers;
 
 import main.data.*;
 import main.types.UserType;
@@ -104,7 +104,7 @@ public class FileProcessing {
      * @return An object of type Shop that has the id specified in params.
      */
     static public Shop getShopFromFile(int shopID) {
-        Shop responseShop = new Shop();
+        Shop responseShop = null;
         try {
             BufferedReader csvReader = new BufferedReader(new FileReader("./src/main/files/shops.csv"));
             String fileRow = csvReader.readLine();
@@ -135,8 +135,8 @@ public class FileProcessing {
 
             csvReader.close();
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException ignored) {
+
         }
         return responseShop;
     }

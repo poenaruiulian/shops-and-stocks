@@ -1,6 +1,6 @@
 package main.types;
 
-public class Unit {
+public class UnitType {
     public static String kilogram = "kilogram";
     public static String litru = "litru";
     public static String bucata = "bucata";

@@ -1,9 +1,9 @@
 package test;
 
 import main.data.*;
-import main.types.Unit;
+import main.types.UnitType;
 import main.types.UserType;
-import main.files.FileProcessing;
+import main.helpers.FileProcessing;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,12 +16,10 @@ class FileProcessingTest {
         int lastUsedId = FileProcessing.getLastIDUsed("shops");
         List<Employee> employees = new ArrayList<>();
         employees.add((Employee) FileProcessing.getUserFromFile(1));
-        employees.add((Employee) FileProcessing.getUserFromFile(2));
 
         List<Product> products = new ArrayList<>();
         products.add(FileProcessing.getProductFromFile(0));
         products.add(FileProcessing.getProductFromFile(1));
-        products.add(FileProcessing.getProductFromFile(2));
         products.add(FileProcessing.getProductFromFile(3));
         Shop shop = new Shop(lastUsedId + 1, 4, 3, employees.stream().toList(), products.stream().toList());
         FileProcessing.addNewShopToFile(shop);
@@ -75,7 +73,7 @@ class FileProcessingTest {
     @org.junit.jupiter.api.Test
     void addNewProductToFileTest() {
         int lastUsedId = FileProcessing.getLastIDUsed("products");
-        Product product = new Product(lastUsedId + 1, "Banane", 50.0, Unit.kilogram, 12);
+        Product product = new Product(lastUsedId + 1, "Banane", 50.0, UnitType.kilogram, 12);
         FileProcessing.addNewProductToFile(product);
     }
 
@@ -115,7 +113,7 @@ class FileProcessingTest {
 
     @org.junit.jupiter.api.Test
     void updateProductInFileTest(){
-        Product updatedProduct = new Product(3,"Pepene",20,Unit.bucata,20);
+        Product updatedProduct = new Product(3,"Pepene",20, UnitType.bucata,20);
         FileProcessing.updateProductInFile(updatedProduct);
     }
     @org.junit.jupiter.api.Test
