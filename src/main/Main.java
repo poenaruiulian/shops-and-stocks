@@ -86,7 +86,7 @@ public class Main {
                 }
                 response = HandleConsoleOptions.handleCEOOptions();
             }
-            return currentUser;
+            System.exit(0);
         }else if(Objects.equals(currentUser.getUserType(), UserType.manager)){
             ShopManager shopManagerCurrentUser = (ShopManager) currentUser;
             String response = HandleConsoleOptions.handleShopManagerOptions();
@@ -98,7 +98,7 @@ public class Main {
                 }
                 response = HandleConsoleOptions.handleShopManagerOptions();
             }
-            return currentUser;
+            System.exit(0);
         }else if(Objects.equals(currentUser.getUserType(), UserType.employee)){
             Employee employeeCurrentUser = (Employee) currentUser;
             String response = HandleConsoleOptions.handleEmployeeOptions();
@@ -110,7 +110,7 @@ public class Main {
                 }
                 response = HandleConsoleOptions.handleEmployeeOptions();
             }
-
+            System.exit(0);
         }
         return null;
     }

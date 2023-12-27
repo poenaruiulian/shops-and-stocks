@@ -297,7 +297,6 @@ public class HandleConsoleResponses {
                 return null;
             case ResponseType.quit:
                 System.exit(0);
-                break;
             case ResponseType.back:
                 return currentUser;
         }
@@ -440,7 +439,6 @@ public class HandleConsoleResponses {
                 return null;
             case ResponseType.quit:
                 System.exit(0);
-                break;
             case ResponseType.back:
                 return currentUser;
         }
@@ -533,7 +531,6 @@ public class HandleConsoleResponses {
                 return null;
             case ResponseType.quit:
                 System.exit(0);
-                break;
             case ResponseType.back:
                 return currentUser;
         }
