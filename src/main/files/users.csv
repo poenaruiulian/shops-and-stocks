@@ -1,0 +1,6 @@
+UserID,UserType,FirstName,LastName,DateOfBirth,PhoneNumber,Address,ShopID,DateOfEmployment,EmployeesIDs,ShopsIDs
+1,employee,Dorel,Mirel,January 2 2000,777 777 777,Strada Plosnitelor,0,March 2 2017,-,-
+3,manager,George,Falea,January 2 2000,777 777 777,Strada Plosnitelor,0,March 2 2017,1;,-
+4,ceo,Poenaru,Iulian,January 2 2000,777 777 777,Strada Plosnitelor,-,-,1;3;5;7;,0;1;2;3;
+5,manager,sad,sad,December 12 2000,111,asd,2,December 27 2023,7;,-
+7,employee,qwert,qwertt,December 12 2000,122,sadfg,2,December 27 2023,-,-
