@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The class corresponding to the employee role.
+ */
 public class Employee extends Person {
     protected int shopID;
     protected LocalDate dateOfEmployment;

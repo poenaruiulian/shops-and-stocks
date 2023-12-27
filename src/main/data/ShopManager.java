@@ -6,6 +6,9 @@ import main.types.UserType;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * The class corresponding to the shop manager role.
+ */
 public class ShopManager extends Employee {
     private List<Employee> employeeList;
 
