@@ -8,6 +8,10 @@ import static main.Main.clearScreen;
 
 public class HandleConsoleOptions {
 
+    /**
+     * Presents the options for an employee, giving the opportunity to the user to select an answer.
+     * @return A string corresponding to the response gave by the user.
+     */
     public static String handleEmployeeOptions() {
         String response = "";
         clearScreen();
@@ -49,6 +53,11 @@ public class HandleConsoleOptions {
 
         return response;
     }
+
+    /**
+     * Presents the options for a shop manager, giving the opportunity to the user to select an answer.
+     * @return A string corresponding to the response gave by the user.
+     */
     public static String handleShopManagerOptions() {
         String response = "";
         clearScreen();
@@ -107,6 +116,10 @@ public class HandleConsoleOptions {
         return response;
     }
 
+    /**
+     * Presents the options for a ceo, giving the opportunity to the user to select an answer.
+     * @return A string corresponding to the response gave by the user.
+     */
     public static String handleCEOOptions(){
         String response = "";
         clearScreen();

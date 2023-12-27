@@ -13,6 +13,12 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class HandleConsoleResponses {
+    /**
+     * Handles the responses of the CEO.
+     * @param currentUser The current user that uses the app.
+     * @param response The response of the user gave in the options tab.
+     * @return The modified current user.
+     */
     public static CEO handleCEOResponse(CEO currentUser, String response) {
         Scanner scanner = new Scanner(System.in);
         switch (response) {
@@ -308,6 +314,12 @@ public class HandleConsoleResponses {
         }
         return currentUser;
     }
+    /**
+     * Handles the responses of the Shop Manager.
+     * @param currentUser The current user that uses the app.
+     * @param response The response of the user gave in the options tab.
+     * @return The modified current user.
+     */
     public static ShopManager handleShopManagerResponse(ShopManager currentUser, String response) {
         Scanner scanner = new Scanner(System.in);
         switch (response) {
@@ -450,7 +462,12 @@ public class HandleConsoleResponses {
         }
         return currentUser;
     }
-
+    /**
+     * Handles the responses of the Employee.
+     * @param currentUser The current user that uses the app.
+     * @param response The response of the user gave in the options tab.
+     * @return The modified current user.
+     */
     public static Employee handleEmployeeResponse(Employee currentUser, String response){
         Scanner scanner = new Scanner(System.in);
         switch (response) {

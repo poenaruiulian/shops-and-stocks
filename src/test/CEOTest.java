@@ -1,5 +1,6 @@
-package main.data;
+package test;
 
+import main.data.CEO;
 import main.helpers.FileProcessing;
 import org.junit.jupiter.api.Test;
 
