@@ -1,6 +1,7 @@
 package main;
 
 
+import main.libs.App;
 import main.data.CEO;
 import main.data.Employee;
 import main.data.Person;
@@ -11,6 +12,7 @@ import main.helpers.HandleConsoleResponses;
 import main.types.ResponseType;
 import main.types.UserType;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -116,14 +118,23 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Person currentUser;
 
-        while(true){
-            currentUser = handleConsoleAuth();
-            if (currentUser != null) {
-                handleConsoleApp(currentUser);
-            }
+        App GUI = null;
+        try {
+            GUI = new App();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+        GUI.setVisible(true);
+
+//        Person currentUser;
+//
+//        while(true){
+//            currentUser = handleConsoleAuth();
+//            if (currentUser != null) {
+//                handleConsoleApp(currentUser);
+//            }
+//        }
 
 
 
