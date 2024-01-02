@@ -5,6 +5,7 @@ import main.helpers.Auth;
 import main.helpers.FileProcessing;
 import main.libs.constants.Constants;
 import main.types.ResponseType;
+import main.types.TransactionType;
 import main.types.UnitType;
 import main.types.UserType;
 
@@ -1196,7 +1197,126 @@ public class App extends JFrame {
             responseScreen.repaint();
         } else if (response.equals(ResponseType.addStockItem)) {
             this.setTitle("Shops & Stocks - Modify Quantity Of Product");
-            //TODO
+            SpinnerNumberModel quantityModel = new SpinnerNumberModel(10, 0, 100000, 1);
+            JSpinner quantitySpinner = new JSpinner(quantityModel);
+            JLabel quantityLabel = new JLabel("Quantity: ");
+            quantityLabel.setFont(Constants.monospacedSmall);
+            JLabel unitLabel = new JLabel("Select the ID of product:");
+            unitLabel.setFont(Constants.monospacedSmall);
+
+            JPanel lastNamePanel = new JPanel();
+            lastNamePanel.setSize(new Dimension(Constants.MAX_WIDTH, 40));
+            String[] typeOfOperation = {TransactionType.adding, TransactionType.substracing};
+            JComboBox<String> cb = new JComboBox<>(typeOfOperation);
+            lastNamePanel.add(quantityLabel);
+            lastNamePanel.add(cb);
+            lastNamePanel.add(quantitySpinner);
+
+            JPanel addressPanel = new JPanel();
+            addressPanel.setSize(new Dimension(Constants.MAX_WIDTH, 40));
+            addressPanel.add(unitLabel);
+
+            JButton addUser = new JButton("Modify Quantity Of Product");
+            addUser.setSize(new Dimension(100, 24));
+            addUser.setFont(Constants.monospacedRegular);
+
+
+            JPanel grid = new JPanel();
+            grid.setLayout(new GridLayout(7, 1));
+
+            JComboBox<Integer> cb2;
+            if (Objects.equals(currentUser.getUserType(), UserType.ceo)) {
+                Integer[] listOfIds = new Integer[((CEO) currentUser).getShopList().size()];
+                List<Shop> shopList = ((CEO) currentUser).getShopList();
+                int k = 0;
+                for (Shop shop : shopList) {
+                    listOfIds[k] = shop.getShopID();
+                    k++;
+                }
+
+                cb2 = new JComboBox<>(listOfIds);
+
+                JPanel shopIdPanel = new JPanel();
+                JLabel selectShopLabel = new JLabel("Select an available shop: ");
+                selectShopLabel.setFont(Constants.monospacedSmall);
+                shopIdPanel.add(selectShopLabel);
+                shopIdPanel.add(cb2);
+
+                cb2.addActionListener((e) -> {
+                    Shop shop = FileProcessing.getShopFromFile((Integer) cb2.getSelectedItem());
+                    Integer[] idsOfProducts = new Integer[shop.getProductList().size() + 1];
+                    int l = 0;
+                    for (Product product : shop.getProductList()) {
+                        idsOfProducts[l] = product.getProductId();
+                        l++;
+                    }
+                    JComboBox<Integer> cb3 = new JComboBox<>(idsOfProducts);
+
+                    addUser.addActionListener((f) -> {
+
+                        ((CEO) currentUser).modifyItem((Integer) cb3.getSelectedItem(), (String) cb.getSelectedItem(), Double.valueOf(String.valueOf(quantitySpinner.getValue())), (Integer) cb2.getSelectedItem());
+                        this.remove(responseScreen);
+                        if (Objects.equals(fromWhere, "employees")) {
+                            this.add(handleEmployees());
+                        } else if (Objects.equals(fromWhere, "products")) {
+                            this.add(handleProducts());
+                        } else {
+                            //TODO handle shops
+                        }
+                        this.revalidate();
+                        this.repaint();
+                    });
+
+                    addressPanel.removeAll();
+                    addressPanel.add(unitLabel);
+                    addressPanel.add(cb3);
+                    addressPanel.revalidate();
+                    addressPanel.repaint();
+
+                });
+
+
+                grid.add(shopIdPanel);
+            } else {
+                Shop shop = FileProcessing.getShopFromFile(((Employee) currentUser).getShopID());
+                Integer[] idsOfProducts = new Integer[shop.getProductList().size() + 1];
+                int l = 0;
+                for (Product product : shop.getProductList()) {
+                    idsOfProducts[l] = product.getProductId();
+                    l++;
+                }
+                JComboBox<Integer> cb3 = new JComboBox<>(idsOfProducts);
+
+                addressPanel.add(cb3);
+
+                addUser.addActionListener((f) -> {
+
+                    ((Employee) currentUser).modifyItem((Integer) cb3.getSelectedItem(), (String) cb.getSelectedItem(), Double.valueOf(String.valueOf(quantitySpinner.getValue())));
+                    this.remove(responseScreen);
+                    if (Objects.equals(fromWhere, "employees")) {
+                        this.add(handleEmployees());
+                    } else if (Objects.equals(fromWhere, "products")) {
+                        this.add(handleProducts());
+                    } else {
+                        //TODO handle shops
+                    }
+                    this.revalidate();
+                    this.repaint();
+                });
+
+                cb2 = null;
+            }
+
+            grid.add(addressPanel);
+            grid.add(lastNamePanel);
+            grid.add(addUser);
+
+
+            responseScreen.removeAll();
+            responseScreen.add(grid);
+            responseScreen.add(bar, BorderLayout.NORTH);
+            responseScreen.revalidate();
+            responseScreen.repaint();
         }
         this.add(responseScreen);
     }
