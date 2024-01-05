@@ -76,6 +76,7 @@ public class CEO extends Person {
             this.employeeList = this.employeeList.stream().filter(employeee -> employee.userID != employeee.userID).toList();
         }
 
+        FileProcessing.deleteUserFromFile(shopToClose.getShopManagerID());
         FileProcessing.updateUserInFile(this);
         FileProcessing.deleteShopFromFile(shopToCloseId);
     }
