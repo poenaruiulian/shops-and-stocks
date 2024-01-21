@@ -2,15 +2,15 @@ package main;
 
 
 import main.libs.App;
-import main.data.CEO;
-import main.data.Employee;
-import main.data.Person;
-import main.data.ShopManager;
-import main.helpers.Auth;
-import main.helpers.HandleConsoleOptions;
-import main.helpers.HandleConsoleResponses;
-import main.types.ResponseType;
-import main.types.UserType;
+import main.java.data.CEO;
+import main.java.data.Employee;
+import main.java.data.Person;
+import main.java.data.ShopManager;
+import main.java.helpers.Auth;
+import main.java.helpers.HandleConsoleOptions;
+import main.java.helpers.HandleConsoleResponses;
+import main.java.types.ResponseType;
+import main.java.types.UserType;
 
 import java.io.IOException;
 import java.util.Objects;
