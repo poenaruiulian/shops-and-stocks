@@ -2,6 +2,9 @@ package main.java.data;
 
 import java.util.List;
 
+/**
+ * This class defines how a shop object is looking.
+ */
 public class Shop {
     private int shopID;
     private int ownerID;

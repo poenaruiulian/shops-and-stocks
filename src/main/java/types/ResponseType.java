@@ -1,5 +1,8 @@
 package main.java.types;
 
+/**
+ * This class stores all the response types from the options the user have in the app.
+ */
 public class ResponseType {
     final static public String openShop = "open-shop";
     final static public String closeShop = "close-shop";

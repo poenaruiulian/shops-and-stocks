@@ -1,11 +1,14 @@
 package main.java.helpers;
 
+import main.java.libs.BetaApp;
 import main.java.types.ResponseType;
 
 import java.util.Scanner;
 
-import static main.Main.clearScreen;
 
+/**
+ * This class is part of the Beta Version of the app and it's purpose is to handle the options presented to the user.
+ */
 public class HandleConsoleOptions {
 
     /**
@@ -14,7 +17,7 @@ public class HandleConsoleOptions {
      */
     public static String handleEmployeeOptions() {
         String response = "";
-        clearScreen();
+        BetaApp.clearScreen();
         System.out.println("Products [1]");
         System.out.println("Log out [0]");
         System.out.println("Quit [q]");
@@ -23,7 +26,7 @@ public class HandleConsoleOptions {
 
         switch (scanner.nextLine()) {
             case "1":
-                clearScreen();
+                BetaApp.clearScreen();
                 System.out.println("Back [b]");
                 System.out.println("See stock for shop [1]");
                 System.out.println("Add a new product to shop [2]");
@@ -60,7 +63,7 @@ public class HandleConsoleOptions {
      */
     public static String handleShopManagerOptions() {
         String response = "";
-        clearScreen();
+        BetaApp.clearScreen();
         System.out.println("Employees [1]");
         System.out.println("Products [2]");
         System.out.println("Log out [0]");
@@ -70,7 +73,7 @@ public class HandleConsoleOptions {
 
         switch (scanner.nextLine()) {
             case "1":
-                clearScreen();
+                BetaApp.clearScreen();
                 System.out.println("Back [b]");
                 System.out.println("See all employees [1]");
                 System.out.println("Hire an employee [2]");
@@ -85,7 +88,7 @@ public class HandleConsoleOptions {
                 };
                 break;
             case "2":
-                clearScreen();
+                BetaApp.clearScreen();
                 System.out.println("Back [b]");
                 System.out.println("See stock for shop [1]");
                 System.out.println("Add a new product to shop [2]");
@@ -122,7 +125,7 @@ public class HandleConsoleOptions {
      */
     public static String handleCEOOptions(){
         String response = "";
-        clearScreen();
+        BetaApp.clearScreen();
         System.out.println("Shops [1]");
         System.out.println("Employees [2]");
         System.out.println("Products [3]");
@@ -133,7 +136,7 @@ public class HandleConsoleOptions {
 
         switch (scanner.nextLine()) {
             case "1":
-                clearScreen();
+                BetaApp.clearScreen();
                 System.out.println("Back [b]");
                 System.out.println("See all shops [1]");
                 System.out.println("Open a shop [2]");
@@ -148,7 +151,7 @@ public class HandleConsoleOptions {
                 };
                 break;
             case "2":
-                clearScreen();
+                BetaApp.clearScreen();
                 System.out.println("Back [b]");
                 System.out.println("See all employees [1]");
                 System.out.println("Hire a manager [2]");
@@ -169,7 +172,7 @@ public class HandleConsoleOptions {
                 };
                 break;
             case "3":
-                clearScreen();
+                BetaApp.clearScreen();
                 System.out.println("Back [b]");
                 System.out.println("See stock for a shop [1]");
                 System.out.println("Add a new product to a shop [2]");

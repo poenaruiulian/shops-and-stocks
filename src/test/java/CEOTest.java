@@ -14,7 +14,6 @@ class CEOTest {
         ceo.openShop();
     }
 
-    //TODO
     @Test
     void closeShop() {
         CEO ceo = (CEO) FileProcessing.getUserFromFile(4);

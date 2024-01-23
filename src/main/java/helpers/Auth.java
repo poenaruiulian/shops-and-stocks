@@ -1,5 +1,6 @@
 package main.java.helpers;
 
+import main.java.constants.StringConstants;
 import main.java.data.Person;
 
 import java.io.BufferedReader;
@@ -8,6 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * This class is used to make the authentication process.
+ */
 public class Auth {
     /**
      * This function verifies if a user is logged in or not.
@@ -17,7 +21,7 @@ public class Auth {
         boolean response = false;
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("./src/main/files/current_user.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(StringConstants.currentUserFile));
             String fileRow = reader.readLine();
             if (fileRow != null) {
                 response = !fileRow.isEmpty();
@@ -35,7 +39,7 @@ public class Auth {
     static public Person getCurrentUser() {
         Person currentUser = null;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("./src/main/files/current_user.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(StringConstants.currentUserFile));
             String currentUserId = reader.readLine();
             reader.close();
 
@@ -58,7 +62,7 @@ public class Auth {
     static public Person loggInUser(String firstName, String lastName) {
         Person currentUser = null;
         try {
-            BufferedReader csvReader = new BufferedReader(new FileReader("./src/main/files/users.csv"));
+            BufferedReader csvReader = new BufferedReader(new FileReader(StringConstants.userFile));
             String fileRow = csvReader.readLine();
             while ((fileRow = csvReader.readLine()) != null) {
                 String[] data = fileRow.split(",");
@@ -69,7 +73,7 @@ public class Auth {
             }
             csvReader.close();
             if (currentUser != null) {
-                FileWriter writer = new FileWriter("./src/main/files/current_user.txt");
+                FileWriter writer = new FileWriter(StringConstants.currentUserFile);
                 writer.append(String.valueOf(currentUser.getUserID()));
                 writer.flush();
                 writer.close();
@@ -86,7 +90,7 @@ public class Auth {
      */
     static public void logOut() {
         try {
-            FileWriter writer = new FileWriter("./src/main/files/current_user.txt");
+            FileWriter writer = new FileWriter(StringConstants.currentUserFile);
             writer.append("");
             writer.flush();
             writer.close();

@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
- * This class holds all the file processing functions that a user could have access to.
+ * This class holds all the file processing functions that a user could have access to. This class is meant to simulate the CRUD operations made on a database.
  */
 public class FileProcessing {
 
@@ -240,7 +240,7 @@ public class FileProcessing {
     static public int getLastIDUsed(String filename) {
         int lastIdUsed = -1;
         try {
-            BufferedReader csvReader = new BufferedReader(new FileReader("./src/main/files/" + filename + ".csv"));
+            BufferedReader csvReader = new BufferedReader(new FileReader("./src/main/resources/files/" + filename + ".csv"));
             String fileRow = csvReader.readLine();
             while ((fileRow = csvReader.readLine()) != null) {
                 String[] data = fileRow.split(",");

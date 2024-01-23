@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * The class corresponding to the role of CEO.
+ * The class is corresponding to the role of CEO.
  */
 public class CEO extends Person {
     private List<Employee> employeeList;

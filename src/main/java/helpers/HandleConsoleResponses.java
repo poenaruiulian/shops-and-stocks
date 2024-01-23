@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * This class is part of the Beta Version of the app and it's purpose is to handle the responses from the user input.
+ */
 public class HandleConsoleResponses {
     /**
      * Handles the responses of the CEO.
