@@ -1,131 +1,28 @@
 package main;
 
 
-import main.data.CEO;
-import main.data.Employee;
-import main.data.Person;
-import main.data.ShopManager;
-import main.helpers.Auth;
-import main.helpers.HandleConsoleOptions;
-import main.helpers.HandleConsoleResponses;
-import main.types.ResponseType;
-import main.types.UserType;
+import main.java.libs.App;
+import main.java.libs.BetaApp;
 
-import java.util.Objects;
-import java.util.Scanner;
+import java.io.IOException;
 
 public class Main {
 
-    /**
-     * Clearing the screen in a hacky way.
-     */
-    public static void clearScreen() {
-        for (int clear = 0; clear < 1000; clear++) {
-            System.out.println("\b");
-        }
-    }
-
-    /**
-     * @return a Person object if a user is logged in or a user loges in or null if the user doesn't log
-     */
-    public static Person handleConsoleAuth() {
-        Person authUser = null;
-        Scanner scanner = new Scanner(System.in);
-
-        if (Auth.isUserLogged()) {
-            authUser = Auth.getCurrentUser();
-            System.out.println(" --- Hello, " + authUser.getFirstName() + " --- ");
-        } else {
-            System.out.println("No user is logged in. Would you like to log in? [y/n]");
-            String response = scanner.nextLine();
-            if (response.equalsIgnoreCase("y")) {
-                while (authUser == null) {
-                    clearScreen();
-                    System.out.println("Login: ");
-                    System.out.print("First name: ");
-                    String firstName = scanner.nextLine();
-                    System.out.print("Last name: ");
-                    String lastName = scanner.nextLine();
-
-                    authUser = Auth.loggInUser(firstName, lastName);
-
-                    if (authUser == null) {
-                        System.out.println("No user found. Try again? [y/n]");
-                        response = scanner.nextLine();
-                        if (response.equalsIgnoreCase("n")) {
-                            break;
-                        }
-                    }
-                }
-                if (authUser != null) {
-                    clearScreen();
-                    System.out.println(" --- Hello, " + authUser.getFirstName() + " --- ");
-                    return authUser;
-                }
-            }
-            clearScreen();
-            System.out.println("If you don't have an account contact your supervisor to create one for you.");
-        }
-        return authUser;
-    }
-
-    /**
-     * Handles the beta version of the app.
-     *
-     * @param currentUser Current logged user.
-     */
-    public static Person handleConsoleApp(Person currentUser) {
-        if (Objects.equals(currentUser.getUserType(), UserType.ceo)) {
-            CEO ceoCurrentUser = (CEO) currentUser;
-            String response = HandleConsoleOptions.handleCEOOptions();
-            while (!Objects.equals(response, ResponseType.quit)) {
-                ceoCurrentUser = HandleConsoleResponses.handleCEOResponse(ceoCurrentUser, response);
-                if(ceoCurrentUser==null){
-                    clearScreen();
-                    return null;
-                }
-                response = HandleConsoleOptions.handleCEOOptions();
-            }
-            System.exit(0);
-        }else if(Objects.equals(currentUser.getUserType(), UserType.manager)){
-            ShopManager shopManagerCurrentUser = (ShopManager) currentUser;
-            String response = HandleConsoleOptions.handleShopManagerOptions();
-            while (!Objects.equals(response, ResponseType.quit)) {
-                shopManagerCurrentUser = HandleConsoleResponses.handleShopManagerResponse(shopManagerCurrentUser, response);
-                if(shopManagerCurrentUser==null){
-                    clearScreen();
-                    return null;
-                }
-                response = HandleConsoleOptions.handleShopManagerOptions();
-            }
-            System.exit(0);
-        }else if(Objects.equals(currentUser.getUserType(), UserType.employee)){
-            Employee employeeCurrentUser = (Employee) currentUser;
-            String response = HandleConsoleOptions.handleEmployeeOptions();
-            while (!Objects.equals(response, ResponseType.quit)) {
-                employeeCurrentUser = HandleConsoleResponses.handleEmployeeResponse(employeeCurrentUser, response);
-                if(employeeCurrentUser==null){
-                    clearScreen();
-                    return null;
-                }
-                response = HandleConsoleOptions.handleEmployeeOptions();
-            }
-            System.exit(0);
-        }
-        return null;
-    }
-
     public static void main(String[] args) {
-        Person currentUser;
 
-        while(true){
-            currentUser = handleConsoleAuth();
-            if (currentUser != null) {
-                handleConsoleApp(currentUser);
+        boolean isBetaVerison = false;
+
+        if(isBetaVerison){
+            BetaApp.main();
+        }else{
+            App GUI = null;
+            try {
+                GUI = new App();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+            GUI.setVisible(true);
         }
-
-
 
     }
 }

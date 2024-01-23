@@ -1,4 +1,6 @@
 main
-main.data
-main.helpers
-main.types
+main.java.constants
+main.java.data
+main.java.helpers
+main.java.libs
+main.java.types

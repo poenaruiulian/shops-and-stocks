@@ -4,6 +4,7 @@
 This app provides access to three types of employees: CEO, Shop Manager and Employee. Every type of user has different options that he can select from the menu provided in the console. For the beta version of the app, the user will navigate through it and do its business using a console interface, later to be changed to a more intuitive graphical one.
 
 When the app starts, if no ID can be found in the file `current_user.txt`, the user will be asked to log in using its credentials:
+
 <img width="207" alt="login" src="https://github.com/poenaruiulian/shops-and-stocks/assets/54375582/800a7e8a-5739-40fb-b687-a229a60ba0bd">
 
 After the login, depending on what type of user he is, the app will display a specific menu. Each menu has different options presented below:
