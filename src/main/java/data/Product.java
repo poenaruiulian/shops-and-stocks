@@ -2,6 +2,9 @@ package main.java.data;
 
 import main.java.types.UnitType;
 
+/**
+ * This class defines a product object used for storing in the store stocks.
+ */
 public class Product {
     private int productId;
     private String productName;

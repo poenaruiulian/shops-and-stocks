@@ -1,13 +1,14 @@
-package main.libs;
+package main.java.libs;
 
-import main.data.*;
-import main.helpers.Auth;
-import main.helpers.FileProcessing;
-import main.libs.constants.Constants;
-import main.types.ResponseType;
-import main.types.TransactionType;
-import main.types.UnitType;
-import main.types.UserType;
+import main.java.data.*;
+import main.java.helpers.Auth;
+import main.java.helpers.FileProcessing;
+import main.java.data.Person;
+import main.java.constants.Constants;
+import main.java.types.ResponseType;
+import main.java.types.TransactionType;
+import main.java.types.UnitType;
+import main.java.types.UserType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class represents the Final Version of the application.
+ */
 public class App extends JFrame {
 
     Person currentUser = null;
@@ -54,6 +58,9 @@ public class App extends JFrame {
         }
     }
 
+    /**
+     * Handles the authentication process for the final version of the app.
+     */
     void handleAuth() {
 
         final Person[] currentUser = new Person[1];
@@ -141,6 +148,10 @@ public class App extends JFrame {
         this.authScreen.add(submit);
     }
 
+    /**
+     * This function handles the main screen of the app where for each role is different.
+     * @return The screen for the main options of the user.
+     */
     JPanel handleOptionsScreen() {
         JPanel optionsScreen = new JPanel();
         optionsScreen.setLayout(new GridLayout(2, 3));
@@ -149,8 +160,8 @@ public class App extends JFrame {
         JButton employees = new JButton("Employees");
         JButton shops = new JButton("Shops");
         JButton products = new JButton("Products");
-        JButton logout = new JButton(new ImageIcon("./src/main/libs/assets/logout.png"));
-        JButton quit = new JButton(new ImageIcon("./src/main/libs/assets/exit.png"));
+        JButton logout = new JButton(new ImageIcon("./src/main/resources/assets/logout.png"));
+        JButton quit = new JButton(new ImageIcon("./src/main/resources/assets/exit.png"));
 
         employees.setFont(Constants.monospacedBig);
         shops.setFont(Constants.monospacedBig);
@@ -172,6 +183,12 @@ public class App extends JFrame {
         employees.addActionListener((e) -> {
             this.remove(optionsScreen);
             this.add(handleEmployees());
+            this.revalidate();
+            this.repaint();
+        });
+        shops.addActionListener((e) -> {
+            this.remove(optionsScreen);
+            this.add(handleShops());
             this.revalidate();
             this.repaint();
         });
@@ -204,6 +221,10 @@ public class App extends JFrame {
         return optionsScreen;
     }
 
+    /**
+     * This function handles the screen option for the employee screen. This panel is available just for the CEO and ShopManager
+     * @return The screen options for the employees category
+     */
     JPanel handleEmployees() {
 
         JPanel employeesScreen = new JPanel();
@@ -217,7 +238,7 @@ public class App extends JFrame {
         JButton allEmployees = new JButton();
         allEmployees.setLayout(new GridLayout(3, 1));
         allEmployees.add(new JLabel(""));
-        JLabel allEmployeesIcon = new JLabel(new ImageIcon("./src/main/libs/assets/allemployees.png"));
+        JLabel allEmployeesIcon = new JLabel(new ImageIcon("./src/main/resources/assets/allemployees.png"));
         allEmployeesIcon.setHorizontalAlignment(SwingConstants.CENTER);
         allEmployees.add(allEmployeesIcon);
         JLabel allEmployeesLabel = new JLabel("See all employees");
@@ -234,7 +255,7 @@ public class App extends JFrame {
         JButton hireAnEmployee = new JButton();
         hireAnEmployee.setLayout(new GridLayout(3, 1));
         hireAnEmployee.add(new JLabel(""));
-        JLabel hireAnEmployeeIcon = new JLabel(new ImageIcon("./src/main/libs/assets/hire.png"));
+        JLabel hireAnEmployeeIcon = new JLabel(new ImageIcon("./src/main/resources/assets/hire.png"));
         hireAnEmployeeIcon.setHorizontalAlignment(SwingConstants.CENTER);
         hireAnEmployee.add(hireAnEmployeeIcon);
         JLabel hireAnEmployeeLabel = new JLabel("Hire an employee");
@@ -251,7 +272,7 @@ public class App extends JFrame {
         JButton fireAnEmployee = new JButton("");
         fireAnEmployee.setLayout(new GridLayout(3, 1));
         fireAnEmployee.add(new JLabel(""));
-        JLabel fireAnEmployeeIcon = new JLabel(new ImageIcon("./src/main/libs/assets/fire.png"));
+        JLabel fireAnEmployeeIcon = new JLabel(new ImageIcon("./src/main/resources/assets/fire.png"));
         fireAnEmployeeIcon.setHorizontalAlignment(SwingConstants.CENTER);
         fireAnEmployee.add(fireAnEmployeeIcon);
         JLabel fireAnEmployeeLabel = new JLabel("Fire an employee");
@@ -268,7 +289,7 @@ public class App extends JFrame {
         JButton hireAManager = new JButton("");
         hireAManager.setLayout(new GridLayout(3, 1));
         hireAManager.add(new JLabel(""));
-        JLabel hireAManagerIcon = new JLabel(new ImageIcon("./src/main/libs/assets/hiremanager.png"));
+        JLabel hireAManagerIcon = new JLabel(new ImageIcon("./src/main/resources/assets/hiremanager.png"));
         hireAManagerIcon.setHorizontalAlignment(SwingConstants.CENTER);
         hireAManager.add(hireAManagerIcon);
         JLabel hireAManagerLabel = new JLabel("Hire a manager");
@@ -285,7 +306,7 @@ public class App extends JFrame {
         JButton fireAManager = new JButton("");
         fireAManager.setLayout(new GridLayout(3, 1));
         fireAManager.add(new JLabel(""));
-        JLabel fireAManagerIcon = new JLabel(new ImageIcon("./src/main/libs/assets/firemanager.png"));
+        JLabel fireAManagerIcon = new JLabel(new ImageIcon("./src/main/resources/assets/firemanager.png"));
         fireAManagerIcon.setHorizontalAlignment(SwingConstants.CENTER);
         fireAManager.add(fireAManagerIcon);
         JLabel fireAManagerLabel = new JLabel("Fire a manager");
@@ -302,7 +323,7 @@ public class App extends JFrame {
         JButton transferAnEmployee = new JButton("");
         transferAnEmployee.setLayout(new GridLayout(3, 1));
         transferAnEmployee.add(new JLabel(""));
-        JLabel transferAnEmployeeIcon = new JLabel(new ImageIcon("./src/main/libs/assets/transfer.png"));
+        JLabel transferAnEmployeeIcon = new JLabel(new ImageIcon("./src/main/resources/assets/transfer.png"));
         transferAnEmployeeIcon.setHorizontalAlignment(SwingConstants.CENTER);
         transferAnEmployee.add(transferAnEmployeeIcon);
         JLabel transferAnEmployeeLabel = new JLabel("Transfer");
@@ -343,6 +364,10 @@ public class App extends JFrame {
         return employeesScreen;
     }
 
+    /**
+     * This function handles the screen option for the products screen. This panel is available for every role in the app.
+     * @return The screen option for the employees category
+     */
     JPanel handleProducts() {
         JPanel productsScreen = new JPanel();
         productsScreen.setLayout(new BorderLayout());
@@ -356,7 +381,7 @@ public class App extends JFrame {
         JButton showAllStock = new JButton();
         showAllStock.setLayout(new GridLayout(3, 1));
         showAllStock.add(new JLabel(""));
-        JLabel showAllStockIcon = new JLabel(new ImageIcon("./src/main/libs/assets/stock.png"));
+        JLabel showAllStockIcon = new JLabel(new ImageIcon("./src/main/resources/assets/stock.png"));
         showAllStockIcon.setHorizontalAlignment(SwingConstants.CENTER);
         showAllStock.add(showAllStockIcon);
         JLabel showAllStockLabel = new JLabel("See stock of shop");
@@ -375,7 +400,7 @@ public class App extends JFrame {
         JButton modifyShopsStock = new JButton();
         modifyShopsStock.setLayout(new GridLayout(3, 1));
         modifyShopsStock.add(new JLabel(""));
-        JLabel modifyShopsStockIcon = new JLabel(new ImageIcon("./src/main/libs/assets/edit.png"));
+        JLabel modifyShopsStockIcon = new JLabel(new ImageIcon("./src/main/resources/assets/edit.png"));
         modifyShopsStockIcon.setHorizontalAlignment(SwingConstants.CENTER);
         modifyShopsStock.add(modifyShopsStockIcon);
         JLabel modifyShopsStockLabel = new JLabel("Modify shop stock");
@@ -395,7 +420,7 @@ public class App extends JFrame {
         JButton modifyProductQuantity = new JButton();
         modifyProductQuantity.setLayout(new GridLayout(3, 1));
         modifyProductQuantity.add(new JLabel(""));
-        JLabel modifyProductQuantityIcon = new JLabel(new ImageIcon("./src/main/libs/assets/quantity.png"));
+        JLabel modifyProductQuantityIcon = new JLabel(new ImageIcon("./src/main/resources/assets/quantity.png"));
         modifyProductQuantityIcon.setHorizontalAlignment(SwingConstants.CENTER);
         modifyProductQuantity.add(modifyProductQuantityIcon);
         JLabel modifyProductQuantityLabel = new JLabel("Modify products quantities");
@@ -428,6 +453,97 @@ public class App extends JFrame {
         return productsScreen;
     }
 
+    /**
+     * This function handles the screen option for the shop screen. This panel is available only for the CEO.
+     * @return The screen option for the shop category.
+     */
+    JPanel handleShops(){
+        JPanel shopScreen = new JPanel();
+        shopScreen.setLayout(new BorderLayout());
+
+        JPanel grid = new JPanel();
+
+        grid.setLayout(new GridLayout(1, 3));
+        grid.setPreferredSize(new Dimension(Constants.MAX_WIDTH, Constants.MAX_HEIGHT - 60));
+
+        JButton allShops = new JButton();
+        allShops.setLayout(new GridLayout(3, 1));
+        allShops.add(new JLabel(""));
+        JLabel allShopsIcon = new JLabel(new ImageIcon("./src/main/resources/assets/shop.png"));
+        allShopsIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        allShops.add(allShopsIcon);
+        JLabel allShopsLabel = new JLabel("See all shops");
+        allShopsLabel.setFont(Constants.monospacedSmall);
+        allShopsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        allShops.add(allShopsLabel);
+        allShops.addActionListener((e) -> {
+            this.remove(shopScreen);
+            handleResponse(ResponseType.allShops, "shop");
+            this.revalidate();
+            this.repaint();
+        });
+
+        JButton openShop = new JButton();
+        openShop.setLayout(new GridLayout(3, 1));
+        openShop.add(new JLabel(""));
+        JLabel openShopIcon = new JLabel(new ImageIcon("./src/main/resources/assets/open.png"));
+        openShopIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        openShop.add(openShopIcon);
+        JLabel openShopLabel = new JLabel("Open shop");
+        openShopLabel.setFont(Constants.monospacedSmall);
+        openShopLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        openShop.add(openShopLabel);
+        openShop.addActionListener((e) -> {
+            this.remove(shopScreen);
+            handleResponse(ResponseType.openShop, "shop");
+            this.revalidate();
+            this.repaint();
+        });
+
+        JButton closeShop = new JButton();
+        closeShop.setLayout(new GridLayout(3, 1));
+        closeShop.add(new JLabel(""));
+        JLabel closeShopIcon = new JLabel(new ImageIcon("./src/main/resources/assets/closed.png"));
+        closeShopIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        closeShop.add(closeShopIcon);
+        JLabel closeShopLabel = new JLabel("Close shop");
+        closeShopLabel.setFont(Constants.monospacedSmall);
+        closeShopLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        closeShop.add(closeShopLabel);
+        closeShop.addActionListener((e) -> {
+            this.remove(shopScreen);
+            handleResponse(ResponseType.closeShop, "shop");
+            this.revalidate();
+            this.repaint();
+        });
+
+        grid.add(allShops);
+        grid.add(openShop);
+        grid.add(closeShop);
+
+        JMenuBar bar = new JMenuBar();
+        JMenuItem back = new JMenuItem("←");
+        back.setFont(Constants.backButton);
+        back.addActionListener((e) -> {
+            this.setSize(new Dimension(Constants.MAX_WIDTH, Constants.MAX_HEIGHT));
+            this.remove(shopScreen);
+            this.add(handleOptionsScreen());
+            this.revalidate();
+            this.repaint();
+        });
+        bar.add(back);
+        shopScreen.add(bar, BorderLayout.NORTH);
+
+        shopScreen.add(grid, BorderLayout.SOUTH);
+
+        return shopScreen;
+    }
+
+    /**
+     * This function handles every screen navigation from an option screen to the desired action. For example the user is on the product option screen and clicks on the add product to stock. It will redirect him to the specific page on which this action can be completed.
+     * @param response The action the user selected he wants to do. (for example: adding stock)
+     * @param fromWhere The page from where the user is coming.
+     */
     void handleResponse(String response, String fromWhere) {
         this.responseScreen.setSize(new Dimension(Constants.MAX_WIDTH, Constants.MAX_HEIGHT));
         this.responseScreen.setLayout(new BorderLayout());
@@ -444,7 +560,7 @@ public class App extends JFrame {
             } else if (Objects.equals(fromWhere, "products")) {
                 this.add(handleProducts());
             } else {
-                //TODO handle shops
+                this.add(handleShops());
             }
             this.revalidate();
             this.repaint();
@@ -509,7 +625,8 @@ public class App extends JFrame {
             responseScreen.revalidate();
             responseScreen.repaint();
 
-        } else if (response.equals(ResponseType.hireEmployee)) {
+        }
+        else if (response.equals(ResponseType.hireEmployee)) {
             this.setTitle("Shops & Stocks - Hire An Employee");
 
 
@@ -616,7 +733,7 @@ public class App extends JFrame {
                 } else if (Objects.equals(fromWhere, "products")) {
                     this.add(handleProducts());
                 } else {
-                    //TODO handle shops
+                    this.add(handleShops());
                 }
                 this.revalidate();
                 this.repaint();
@@ -628,7 +745,8 @@ public class App extends JFrame {
             responseScreen.revalidate();
             responseScreen.repaint();
 
-        } else if (response.equals(ResponseType.fireEmployee)) {
+        }
+        else if (response.equals(ResponseType.fireEmployee)) {
             this.setTitle("Shops & Stocks - Fire An Employee");
 
             JPanel grid = new JPanel();
@@ -683,7 +801,7 @@ public class App extends JFrame {
                         } else if (Objects.equals(fromWhere, "products")) {
                             this.add(handleProducts());
                         } else {
-                            //TODO handle shops
+                            this.add(handleShops());
                         }
                         this.revalidate();
                         this.repaint();
@@ -721,7 +839,7 @@ public class App extends JFrame {
                     } else if (Objects.equals(fromWhere, "products")) {
                         this.add(handleProducts());
                     } else {
-                        //TODO handle shops
+                        this.add(handleShops());
                     }
                     this.revalidate();
                     this.repaint();
@@ -735,7 +853,8 @@ public class App extends JFrame {
             responseScreen.add(bar, BorderLayout.NORTH);
             responseScreen.revalidate();
             responseScreen.repaint();
-        } else if (response.equals(ResponseType.hireManager)) {
+        }
+        else if (response.equals(ResponseType.hireManager)) {
 
             this.setTitle("Shops & Stocks - Hire A Manager");
 
@@ -834,7 +953,7 @@ public class App extends JFrame {
                 } else if (Objects.equals(fromWhere, "products")) {
                     this.add(handleProducts());
                 } else {
-                    //TODO handle shops
+                    this.add(handleShops());
                 }
                 this.revalidate();
                 this.repaint();
@@ -846,7 +965,8 @@ public class App extends JFrame {
             responseScreen.revalidate();
             responseScreen.repaint();
 
-        } else if (response.equals(ResponseType.fireManager)) {
+        }
+        else if (response.equals(ResponseType.fireManager)) {
 
             this.setTitle("Shops & Stocks - Fire A Manager");
 
@@ -889,7 +1009,7 @@ public class App extends JFrame {
                     } else if (Objects.equals(fromWhere, "products")) {
                         this.add(handleProducts());
                     } else {
-                        //TODO handle shops
+                        this.add(handleShops());
                     }
                     this.revalidate();
                     this.repaint();
@@ -905,7 +1025,8 @@ public class App extends JFrame {
             responseScreen.add(bar, BorderLayout.NORTH);
             responseScreen.revalidate();
             responseScreen.repaint();
-        } else if (response.equals(ResponseType.transferEmployee)) {
+        }
+        else if (response.equals(ResponseType.transferEmployee)) {
 
             this.setTitle("Shops & Stocks - Transfer An Employee");
 
@@ -975,7 +1096,7 @@ public class App extends JFrame {
                     } else if (Objects.equals(fromWhere, "products")) {
                         this.add(handleProducts());
                     } else {
-                        //TODO handle shops
+                        this.add(handleShops());
                     }
                     this.revalidate();
                     this.repaint();
@@ -991,7 +1112,8 @@ public class App extends JFrame {
             responseScreen.add(bar, BorderLayout.NORTH);
             responseScreen.revalidate();
             responseScreen.repaint();
-        } else if (response.equals(ResponseType.stockOfShop)) {
+        }
+        else if (response.equals(ResponseType.stockOfShop)) {
             this.responseScreen.setSize(new Dimension(Constants.MAX_WIDTH + 200, Constants.MAX_HEIGHT));
             this.setSize(new Dimension(Constants.MAX_WIDTH + 200, Constants.MAX_HEIGHT));
             this.setTitle("Shops & Stocks - Shop's Stock");
@@ -1090,7 +1212,8 @@ public class App extends JFrame {
             responseScreen.add(bar, BorderLayout.NORTH);
             responseScreen.revalidate();
             responseScreen.repaint();
-        } else if (response.equals(ResponseType.addItem)) {
+        }
+        else if (response.equals(ResponseType.addItem)) {
             this.setTitle("Shops & Stocks - Modify Stock");
 
             JTextField productNameField = new JTextField();
@@ -1184,7 +1307,7 @@ public class App extends JFrame {
                 } else if (Objects.equals(fromWhere, "products")) {
                     this.add(handleProducts());
                 } else {
-                    //TODO handle shops
+                    this.add(handleShops());
                 }
                 this.revalidate();
                 this.repaint();
@@ -1195,7 +1318,8 @@ public class App extends JFrame {
             responseScreen.add(bar, BorderLayout.NORTH);
             responseScreen.revalidate();
             responseScreen.repaint();
-        } else if (response.equals(ResponseType.addStockItem)) {
+        }
+        else if (response.equals(ResponseType.addStockItem)) {
             this.setTitle("Shops & Stocks - Modify Quantity Of Product");
             SpinnerNumberModel quantityModel = new SpinnerNumberModel(10, 0, 100000, 1);
             JSpinner quantitySpinner = new JSpinner(quantityModel);
@@ -1261,7 +1385,7 @@ public class App extends JFrame {
                         } else if (Objects.equals(fromWhere, "products")) {
                             this.add(handleProducts());
                         } else {
-                            //TODO handle shops
+                            this.add(handleShops());
                         }
                         this.revalidate();
                         this.repaint();
@@ -1298,7 +1422,7 @@ public class App extends JFrame {
                     } else if (Objects.equals(fromWhere, "products")) {
                         this.add(handleProducts());
                     } else {
-                        //TODO handle shops
+                        this.add(handleShops());
                     }
                     this.revalidate();
                     this.repaint();
@@ -1314,6 +1438,116 @@ public class App extends JFrame {
 
             responseScreen.removeAll();
             responseScreen.add(grid);
+            responseScreen.add(bar, BorderLayout.NORTH);
+            responseScreen.revalidate();
+            responseScreen.repaint();
+        }
+        else if(response.equals(ResponseType.allShops)){
+
+            this.responseScreen.setSize(new Dimension(Constants.MAX_WIDTH * 2 + 100, Constants.MAX_HEIGHT));
+            this.setSize(new Dimension(Constants.MAX_WIDTH * 2 + 100, Constants.MAX_HEIGHT));
+            this.setTitle("Shops & Stocks - All Shops");
+
+            int numberOfShops;
+            List<Shop> shopList = new ArrayList<>();
+            if (Objects.equals(currentUser.getUserType(), UserType.ceo)) {
+                shopList.addAll(((CEO) currentUser).getShopList());
+            }
+
+            numberOfShops = shopList.size();
+            JPanel allShops = new JPanel(new GridLayout(numberOfShops + 1, 4, 10, 10));
+            JLabel titleID = new JLabel("ID");
+            titleID.setFont(Constants.monospacedSmall);
+            allShops.add(titleID);
+            JLabel titleManager = new JLabel("Manager Name");
+            titleManager.setFont(Constants.monospacedSmall);
+            allShops.add(titleManager);
+            JLabel titleNumberOfEmployees = new JLabel("Number of employees");
+            titleNumberOfEmployees.setFont(Constants.monospacedSmall);
+            allShops.add(titleNumberOfEmployees);
+            JLabel titleNumberOfProducts = new JLabel("Number of products");
+            titleNumberOfProducts.setFont(Constants.monospacedSmall);
+            allShops.add(titleNumberOfProducts);
+
+            for (Shop shop : shopList) {
+                allShops.add(new JLabel(String.valueOf(shop.getShopID())));
+                ShopManager manager = shop.getShopManagerID() == - 1 ? null : (ShopManager)FileProcessing.getUserFromFile(shop.getShopManagerID());
+                allShops.add(new JLabel(manager!=null?manager.getFirstName()+" "+manager.getLastName():"none"));
+                allShops.add(new JLabel(String.valueOf(shop.getEmployeesList().size())));
+                allShops.add(new JLabel(String.valueOf(shop.getProductList().size())));
+            }
+
+
+            responseScreen.removeAll();
+            responseScreen.add(allShops, BorderLayout.CENTER);
+            responseScreen.add(bar, BorderLayout.NORTH);
+            responseScreen.revalidate();
+            responseScreen.repaint();
+
+        }
+        else if(response.equals(ResponseType.closeShop)){
+            this.setTitle("Shops & Stocks - Fire A Manager");
+
+
+            JPanel grid = new JPanel();
+            grid.setLayout(new FlowLayout());
+
+            JComboBox<Integer> cb;
+            Integer[] listOfShopIds = new Integer[((CEO) currentUser).getShopList().size()];
+            List<Shop> shopList = ((CEO) currentUser).getShopList();
+            int k = 0;
+            for (Shop shop : shopList) {
+                listOfShopIds[k] = shop.getShopID();
+                k++;
+            }
+            cb = new JComboBox<>(listOfShopIds);
+            JPanel shopIdPanel = new JPanel();
+            JLabel shopIDLabel = new JLabel("Select an available shop: ");
+            shopIDLabel.setFont(Constants.monospacedSmall);
+            shopIdPanel.add(shopIDLabel);
+            shopIdPanel.add(cb);
+
+            cb.addItemListener((e) -> {
+                grid.removeAll();
+                grid.add(shopIdPanel);
+
+                JButton closeShop = new JButton("Close Shop");
+                closeShop.setFont(Constants.monospacedSmall);
+                closeShop.setPreferredSize(new Dimension(200, 32));
+                closeShop.addActionListener((f) -> {
+                    ((CEO) currentUser).closeShop((Integer) cb.getSelectedItem());
+
+                    this.remove(responseScreen);
+                    if (Objects.equals(fromWhere, "employees")) {
+                        this.add(handleEmployees());
+                    } else if (Objects.equals(fromWhere, "products")) {
+                        this.add(handleProducts());
+                    } else {
+                        this.add(handleShops());
+                    }
+                    this.revalidate();
+                    this.repaint();
+                });
+                grid.add(closeShop);
+                grid.revalidate();
+                grid.repaint();
+            });
+
+
+            grid.add(shopIdPanel);
+
+            responseScreen.removeAll();
+            responseScreen.add(grid);
+            responseScreen.add(bar, BorderLayout.NORTH);
+            responseScreen.revalidate();
+            responseScreen.repaint();
+
+        }
+        else if(response.equals(ResponseType.openShop)){
+            ((CEO) currentUser).openShop();
+            JLabel message = new JLabel("Shop opened with success");
+            responseScreen.removeAll();
+            responseScreen.add(message);
             responseScreen.add(bar, BorderLayout.NORTH);
             responseScreen.revalidate();
             responseScreen.repaint();

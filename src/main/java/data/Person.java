@@ -4,6 +4,9 @@ import main.java.types.UserType;
 
 import java.time.LocalDate;
 
+/**
+ * Base class for every role class in the app.
+ */
 public class Person {
     protected int userID;
     protected String userType;
